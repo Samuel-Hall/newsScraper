@@ -36,8 +36,13 @@ $(document).ready(function() {
           "<p data-id='" +
             data[i]._id +
             "'>" +
+            "TITLE: " +
             data[i].title +
             "<br />" +
+            "SUMMARY: " +
+            data[i].summary +
+            "<br />" +
+            "LINK: " +
             data[i].link +
             "</p>"
         );
@@ -62,26 +67,25 @@ $(document).ready(function() {
         console.log(data);
         // The title of the article
         $("#notes").append("<h2>" + data.title + "</h2>");
-        // An input to enter a new title
-        $("#notes").append("<input id='titleinput' name='title' >");
         // A textarea to add a new note body
-        $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+        $("#notes").append(
+          "<br/><p>Add Comment</p><br/><textarea id='bodyinput' name='body'></textarea>"
+        );
         // A button to submit a new note, with the id of the article saved to it
         $("#notes").append(
           "<button data-id='" +
             data._id +
             "' id='savenote'>Save Comment</button>"
         );
+        $("#notes").append("<h3>Comments</h3>");
+        $("#notes").append("<p id='comments'></p>");
 
         // If there's a note in the article
         if (data.note) {
           console.log("COMMENT:", data.note);
-          // Place the title of the note in the title input
-          console.log("TITLE: ", data.note.title);
-          $("#titleinput").val(data.note.title);
           // Place the body of the note in the body textarea
           console.log("BODY: ", data.note.body);
-          $("#bodyinput").val(data.note.body);
+          $("#comments").append(data.note.body);
         }
       });
   });

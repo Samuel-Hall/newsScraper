@@ -44,19 +44,19 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("div.list-overflow article div.item-info h2.title").each(function(
-      i,
-      element
-    ) {
+    $("div.list-overflow article div.item-info").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children("a")
+        .find("h2.title a")
+        .text();
+      result.summary = $(this)
+        .find("p.teaser a")
         .text();
       result.link = $(this)
-        .children("a")
+        .find("h2.title a")
         .attr("href");
 
       // Check if this new Article already exists in the database
